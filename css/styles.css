@@ -1,0 +1,54 @@
+.container {
+  height: 400px;
+  margin: auto;
+  width: 35%;
+}
+.clear-input-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.number-function-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.box {
+  background: #66b357;
+  border: solid #a9d4a2 1px;
+  color: white;
+  flex: 1;
+  min-width: 25%;
+  font-size: 45px;
+  padding: 20px;
+}
+.function {
+  background: #83C178
+}
+.function:hover{
+  color: black;
+}
+.clear {
+  flex: 1;
+}
+.clear:hover{
+  background: #83C178;
+}
+.equals:hover{
+  color: black;
+  background: #83C178;
+}
+.input{
+  flex: 5;
+}
+
+.calc-container {
+  margin: auto;
+  margin-top: 50px;
+  width: 400px
+}
+p {
+  margin: auto 0;
+  padding: 10px;
+  text-align: center;
+}
