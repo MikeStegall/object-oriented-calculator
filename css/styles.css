@@ -18,7 +18,8 @@
   border: solid #a9d4a2 1px;
   color: white;
   flex: 1;
-  min-width: 25%;
+  margin: 1px;
+  min-width: 24%;
   font-size: 45px;
   padding: 20px;
 }
@@ -38,8 +39,8 @@
   color: black;
   background: #83C178;
 }
-.input{
-  flex: 5;
+#input{
+  flex: 4.5;
 }
 
 .calc-container {
