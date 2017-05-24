@@ -6,40 +6,46 @@ class Calculator {
     if (!elementId) {
       window.alert('Something has gone wrong.')
     }
-    // this.idEl = elementIdEl
+    this.idEl = elementId
     this._el = el
     el.innerHTML = this._buildHTML()
     this._numArr = []
+    this._numInput = ''
     this._result = 0
     this._addEvents()
-    this.calcUnlock = true
+    this.isLocked = false
   }
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Public funcions
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  press (calcInput) {
-    if (this.calcUnlock) {
-      let that = this
-      that.input = calcInput
-      if (that.input === 'clear') {
-        that.clearAll()
-      }
-      if (calcInput === '=') {
-        that._updateScreen(that.value())
-      }
-      that._numArr.push(that.input)
+  press (button) {
+    // do nothing if the calculator is locked
+    if (this.isLocked) return
+    let buttonStr = button.toString()
+
+    if (buttonStr === 'clear') {
+      this.clearAll()
+    } else if (buttonStr === '=') {
+      // TODO: need to do something here
+    } else if (buttonStr === '.') {
+      $('.decimal').attr('disabled', true)
+    } else if (buttonStr.length > 1) {
+      return
+    } else { // then it should be a normal number
+      this._numArr.push(buttonStr)
+      console.log(this._numArr)
     }
+    this._updateScreen()
   }
+
   lock () {
-    this.calcUnlock = false
-    $('.box').prop('disabled', true)
+    this.isLocked = true
   }
   unlock () {
-    this.calcUnlock = true
-    $('.box').prop('disabled', false)
+    this.isLocked = false
   }
-  pressButton () {
-    this.press()
+  pressButton (button) {
+    this.press(button)
   }
   value () {
     let inputArr = this._numArr
@@ -60,7 +66,7 @@ class Calculator {
     } else if (operator === '/') {
       this._result = x / y
     }
-    console.log(this._result)
+    // console.log(this._result)
     return this._result
   }
   sayHello () {
@@ -69,8 +75,14 @@ class Calculator {
   }
 
   clearAll () {
+    this._numInput = ''
     this._numArr = []
     this.value()
+  }
+
+  toString () {
+    let numStr = this._numArr.join(' ')
+    return numStr
   }
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +95,7 @@ class Calculator {
   _buildHTML () {
     return `<div class="clear-input-container">
         <button value="clear" class="clear box">C</button>
-        <div id='input' class="box"></div>
+        <div id='input' class="input box"></div>
       </div><!--end of clear-input-->
       <div class="number-function-container">
         <button class="seven box numbers" input="7">7</button>
@@ -105,7 +117,7 @@ class Calculator {
       </div><!--end of numbers-function-containers-->`
   }
   _updateScreen () {
-    return $('#input').html(this.value())
+    $('#' + this.idEl + ' .input').html(this.value())
   }
 }
 // !!!!! NO CODE BELOW THIS LINE !!!!!!
